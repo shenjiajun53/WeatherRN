@@ -3,12 +3,8 @@
  */
 
 import React from 'react';
-import {Row, Col, AutoComplete} from 'antd';
-import logo from '../logo.svg';
+import {AppRegistry, ListView, Text, View, TextInput} from 'react-native';
 import {findCityByName} from  '../Utils.js'
-import CurrentWeatherCard from './CurrentWeatherCard'
-import HourlyWeatherComponent from './HourlyWeatherComponent'
-import DailyWeatherComponent from './DailyWeatherComponent'
 
 const CURRENT_CITY = "current_city";
 
@@ -71,39 +67,40 @@ class TitleBar extends React.Component {
         //     }
         // }
 
-        let addressOption = new Array();
-        if (null != this.state.addressList) {
-            addressOption = this.state.addressList.map(
-                (addressBean) => {
-                    // console.dir(JSON.stringify(addressBean));
-                    return <AutoComplete.Option
-                        key={addressBean.latitude + "_" + addressBean.longitude + "_" + addressBean.address}>
-                        {addressBean.address}
-                    </AutoComplete.Option>;
-                }
-            );
-        }
+        // let addressOption = new Array();
+        // if (null != this.state.addressList) {
+        //     addressOption = this.state.addressList.map(
+        //         (addressBean) => {
+        //             // console.dir(JSON.stringify(addressBean));
+        //             return <AutoComplete.Option
+        //                 key={addressBean.latitude + "_" + addressBean.longitude + "_" + addressBean.address}>
+        //                 {addressBean.address}
+        //             </AutoComplete.Option>;
+        //         }
+        //     );
+        // }
         // console.log("option size=" + addressOption.length);
         return (
-            <div>
-                <Row type="flex" align="middle" justify="space-around">
-                    <Col lg={4} md={6} sm={24}>
-                        <img src={logo} className="App-logo" alt="logo"/>
-                    </Col>
-                    <Col lg={20} md={18} sm={17}>
-                        <AutoComplete
-                            combobox
-                            filterOption={false}
-                            style={{width: 300}}
-                            onSelect={(value) => this.onSelect(value)}
-                            onSearch={(value) => this.handleChange(value)}
-                            placeholder="输入城市名"
-                        >
-                            {addressOption}
-                        </AutoComplete>
-                    </Col>
-                </Row>
-            </div>
+            <View style={{
+                flex:1,
+                flexDirection:"column"
+            }}>
+
+                <TextInput
+                    combobox
+                    filterOption={false}
+                    style={{width: 300}}
+                    onSelect={(value) => this.onSelect(value)}
+                    onSearch={(value) => this.handleChange(value)}
+                    placeholder="输入城市名"
+                >
+                    {addressOption}
+                </TextInput>
+
+                <ListView>
+
+                </ListView>
+            </View>
         );
     }
 }
@@ -119,19 +116,19 @@ class MainComponent extends React.Component {
     }
 
     componentWillMount() {
-        let currentCity = localStorage.getItem(CURRENT_CITY);
-        if (null !== currentCity) {
-            let strArray = currentCity.split("_");
-            // console.log(strArray[0]);
-            // console.log(strArray[1]);
-            this.setState(
-                {
-                    latitude: strArray[0],
-                    longitude: strArray[1],
-                    address: strArray[2]
-                }
-            )
-        }
+        // let currentCity = localStorage.getItem(CURRENT_CITY);
+        // if (null !== currentCity) {
+        //     let strArray = currentCity.split("_");
+        //     // console.log(strArray[0]);
+        //     // console.log(strArray[1]);
+        //     this.setState(
+        //         {
+        //             latitude: strArray[0],
+        //             longitude: strArray[1],
+        //             address: strArray[2]
+        //         }
+        //     )
+        // }
     }
 
     getSelectedLocation(value) {
@@ -153,51 +150,14 @@ class MainComponent extends React.Component {
         return (
             <div>
                 <TitleBar getSelectedLocation={(value) => this.getSelectedLocation(value)}/>
-                <CurrentWeatherCard address={this.state.address}
-                                    latitude={this.state.latitude}
-                                    longitude={this.state.longitude}/>
-                <HourlyWeatherComponent latitude={this.state.latitude}
-                                        longitude={this.state.longitude}/>
-                <DailyWeatherComponent latitude={this.state.latitude}
-                                       longitude={this.state.longitude}/>
+                {/*<CurrentWeatherCard address={this.state.address}*/}
+                                    {/*latitude={this.state.latitude}*/}
+                                    {/*longitude={this.state.longitude}/>*/}
+                {/*<HourlyWeatherComponent latitude={this.state.latitude}*/}
+                                        {/*longitude={this.state.longitude}/>*/}
+                {/*<DailyWeatherComponent latitude={this.state.latitude}*/}
+                                       {/*longitude={this.state.longitude}/>*/}
             </div>
-        );
-    }
-}
-
-class TitleBar2 extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            result: [],
-        }
-    }
-
-    handleChange(value) {
-        let result2;
-        if (!value || value.indexOf('@') >= 0) {
-            result2 = [];
-        } else {
-            result2 = ['gmail.com', '163.com', 'qq.com'].map(domain => `${value}@${domain}`);
-        }
-        this.setState({
-            result: result2
-        });
-    }
-
-    render() {
-        // const result = this.state.result;
-        const children = this.state.result.map((email) => {
-            return <AutoComplete.Option key={email}>{email}</AutoComplete.Option>;
-        });
-        return (
-            <AutoComplete
-                style={{width: 200}}
-                onChange={(value) => this.handleChange(value)}
-                placeholder="input here"
-            >
-                {children}
-            </AutoComplete>
         );
     }
 }

@@ -20,10 +20,14 @@ class Demo2 extends Component {
         return (
             <View style={{flex: 1, paddingTop: 22}}>
                 <ListView
+                    style={{
+                        flexWrap:"wrap",
+                        backgroundColor:"yellow"
+                    }}
                     dataSource={this.state.dataSource}
                     renderRow={(rowData) =>
                     <Text style={{
-                        textAlign:"center"
+                        textAlign:"center",
                     }}>
                     {rowData}
                     </Text>}

@@ -11,6 +11,7 @@ import {
     Text,
     View
 } from 'react-native';
+import MainPage from './src/components/MainPage';
 import Demo2 from './src/Demo2';
 
 
@@ -18,21 +19,7 @@ export default class WeatherRN extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit index.android.js
-                </Text>
-                <Text style={styles.instructions}>
-                    Double tap R on your keyboard to reload,{'\n'}
-                    Shake or press menu button for dev menu
-                </Text>
-
-
-                <Demo2 style={{
-
-                }}/>
+                <Demo2/>
             </View>
         );
     }
