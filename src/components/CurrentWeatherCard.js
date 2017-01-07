@@ -4,9 +4,6 @@
 
 
 import React from 'react';
-// import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import {Card} from 'antd';
-import {Row, Col} from 'antd';
 import {currentWeatherUrl} from  '../Utils.js'
 
 

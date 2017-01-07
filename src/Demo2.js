@@ -17,12 +17,14 @@ class Demo2 extends Component {
     }
 
     render() {
+        console.log(this.state.dataSource);
         return (
-            <View style={{flex: 1, paddingTop: 22}}>
+            <View style={{flex: 1}}>
                 <ListView
                     style={{
+                        flex:1,
                         flexWrap:"wrap",
-                        backgroundColor:"yellow"
+                        backgroundColor:"yellow",
                     }}
                     dataSource={this.state.dataSource}
                     renderRow={(rowData) =>
@@ -31,7 +33,20 @@ class Demo2 extends Component {
                     }}>
                     {rowData}
                     </Text>}
-                />
+
+                >
+                </ListView>
+
+                <View style={{flex: 1, flexDirection: 'row',justifyContent:'space-between',alignItems:"center"}}>
+                    <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}}>
+
+                    </View>
+                    <View
+                        style={{width: 100, height: 100, backgroundColor: 'skyblue',justifyContent:'center',alignItems:'center'}}>
+                        <View style={{width: 50, height: 50, backgroundColor: 'red'}}/>
+                    </View>
+                    <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}}/>
+                </View>
             </View>
         );
     }

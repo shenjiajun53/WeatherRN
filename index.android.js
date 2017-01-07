@@ -18,9 +18,7 @@ import Demo2 from './src/Demo2';
 export default class WeatherRN extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <Demo2/>
-            </View>
+            <MainPage/>
         );
     }
 }
