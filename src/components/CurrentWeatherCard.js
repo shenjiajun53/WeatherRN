@@ -4,6 +4,17 @@
 
 
 import React from 'react';
+import {
+    AppRegistry,
+    ListView,
+    Text,
+    View,
+    TextInput,
+    Image,
+    TouchableHighlight,
+    TouchableNativeFeedback,
+    TouchableOpacity
+} from 'react-native';
 import {currentWeatherUrl} from  '../Utils.js'
 
 
@@ -12,13 +23,11 @@ import {currentWeatherUrl} from  '../Utils.js'
 // const high = require("../../res/drawable-hdpi/currnet_high_b.png");
 
 const defStyle = {
-    marginRight: '100px',
-    marginLeft: '100px',
-    marginTop: '20px',
-    marginBottom: '20px',
-    padding: "0px",
-    fontSize: "14px",
-    fontFamily: "Georgia"
+    marginRight: 16,
+    marginLeft: 16,
+    marginTop: 20,
+    marginBottom: 20,
+    padding: 0,
 };
 
 let mLatitude;
@@ -62,135 +71,135 @@ class CurrentWeatherCard extends React.Component {
             mLatitude = this.props.latitude;
             mLongitude = this.props.longitude;
             this.getCurrentWeather();
+            // console.info("mLatitude=" + mLatitude);
         }
         if (null != this.state.currentWeatherBean) {
             const observationBean = this.state.currentWeatherBean.observation;
             const metricBean = this.state.currentWeatherBean.observation.metric;
             return (
-                <Card className="card-content" style={defStyle}
+                <View className="View-content" style={defStyle}
                       bodyStyle={{
                           padding: 0
                       }}>
-                    <Row type="flex" align="middle" justify="space-between"
-                         style={{
-                             marginTop: "10px",
-                             marginBottom: "10px",
-                             background: "#ffffff"
+                    <View type="flex" align="middle" justify="space-between"
+                          style={{
+                             marginTop: 10,
+                             marginBottom: 10,
+                             backgroundColor: "#ffffff"
                          }}>
-                        <Col lg={8} md={12} sm={4} style={{fontSize: "20px"}}>
+                        <Text lg={8} md={12} sm={4} style={{fontSize: 20}}>
                             {metricBean.temp}℃
-                        </Col>
-                        <Col lg={16} md={12} sm={20} style={{fontSize: "16px"}}>
-                            <span id="current_phrase">
+                        </Text>
+                        <View lg={16} md={12} sm={20}>
+                            <Text style={{fontSize: 16}}>
                                 {observationBean.phrase_32char}
-                            </span>
-                            <br/>
-                            <span id="city_name">
+                            </Text>
+                            <Text style={{fontSize: 16}}>
                                 {this.props.address}
-                            </span>
-                        </Col>
-                    </Row>
+                            </Text>
+                        </View>
+                    </View>
 
-                    <div className="divider" style={{
-                        height: "1px",
-                        background: "#ebebeb"
-                    }}></div>
+                    <View className="Viewider" style={{
+                        height: 1,
+                        backgroundColor: "#ebebeb"
+                    }}></View>
 
-                    <div style={{
-                        padding: "20px",
-                        background: "#f5f5f5"
+                    <View style={{
+                        padding: 20,
+                        backgroundColor: "#f5f5f5"
                     }}>
-                        <Row >
-                            <Col span={6} id="temper_high_div">
-                                <div>高</div>
-                                <img src={require('../../res/drawable-hdpi/currnet_high_b.png')}/>
-                                <div>
+                        <View >
+                            <View span={6} id="temper_high_View">
+                                <Text>高</Text>
+                                <Image src={require('../../res/drawable-hdpi/currnet_high_b.png')}/>
+                                <Text>
                                     {metricBean.temp_max_24hour}
-                                </div>
-                                <div>
+                                </Text>
+                                <Text>
                                     ℃
-                                </div>
-                            </Col>
-                            <Col span={6} id="temper_low_div">
-                                <div>低</div>
-                                <img src={require('../../res/drawable-hdpi/currnet_low_b.png')}/>
-                                <div>
+                                </Text>
+                            </View>
+                            <View span={6} id="temper_low_View">
+                                <Text>低</Text>
+                                <Image src={require('../../res/drawable-hdpi/currnet_low_b.png')}/>
+                                <Text>
                                     {metricBean.temp_min_24hour}
-                                </div>
-                                <div>
+                                </Text>
+                                <Text>
                                     ℃
-                                </div>
-                            </Col>
-                            <Col span={6} id="precipitation_div">
-                                <div>降水</div>
-                                <img src={require('../../res/drawable-hdpi/currnet_preciptation_b.png')}/>
-                                <div>
+                                </Text>
+                            </View>
+                            <View span={6} id="precipitation_View">
+                                <Text>降水</Text>
+                                <Image src={require('../../res/drawable-hdpi/currnet_preciptation_b.png')}/>
+                                <Text>
                                     {metricBean.precip_24hour}
-                                </div>
-                                <div>
+                                </Text>
+                                <Text>
                                     mm
-                                </div>
-                            </Col>
-                            <Col span={6} id="humidity_div">
-                                <div>湿度</div>
-                                <img src={require('../../res/drawable-hdpi/currnet_humidity_b.png')}/>
-                                <div id="humidity_value">
+                                </Text>
+                            </View>
+                            <View span={6} id="humidity_View">
+                                <Text>湿度</Text>
+                                <Image src={require('../../res/drawable-hdpi/currnet_humidity_b.png')}/>
+                                <Text id="humidity_value">
                                     {metricBean.rh}
-                                </div>
-                                <div>
+                                </Text>
+                                <Text>
                                     %
-                                </div>
-                            </Col>
-                        </Row>
+                                </Text>
+                            </View>
+                        </View>
 
-                        <Row className="row no_margin">
-                            <Col span={6} id="visibility_div">
-                                <div>可见度</div>
-                                <img src={require('../../res/drawable-hdpi/currnet_visibility_b.png')}/>
-                                <div id="visibility_value">
+                        <View className="View no_margin">
+                            <View span={6} id="visibility_View">
+                                <Text>可见度</Text>
+                                <Image src={require('../../res/drawable-hdpi/currnet_visibility_b.png')}/>
+                                <Text id="visibility_value">
                                     {metricBean.vis}
-                                </div>
-                                <div>
+                                </Text>
+                                <Text>
                                     公里
-                                </div>
-                            </Col>
-                            <Col span={6} id="wind_div">
-                                <div>风速</div>
-                                <img src={require('../../res/drawable-hdpi/currnet_wind_b.png')}/>
-                                <div id="wind_value">
+                                </Text>
+                            </View>
+                            <View span={6} id="wind_View">
+                                <Text>风速</Text>
+                                <Image src={require('../../res/drawable-hdpi/currnet_wind_b.png')}/>
+                                <Text id="wind_value">
                                     {metricBean.wspd}
-                                </div>
-                                <div>
+                                </Text>
+                                <Text>
                                     公里每小时
-                                </div>
-                            </Col>
-                            <Col span={6} id="pressure_div">
-                                <div>气压</div>
-                                <img src={require('../../res/drawable-hdpi/currnet_pressure_b.png')}/>
-                                <div id="pressure_value">
+                                </Text>
+                            </View>
+                            <View span={6} id="pressure_View">
+                                <Text>气压</Text>
+                                <Image src={require('../../res/drawable-hdpi/currnet_pressure_b.png')}/>
+                                <Text id="pressure_value">
                                     {metricBean.mslp}
-                                </div>
-                                <div>
+                                </Text>
+                                <Text>
                                     毫巴
-                                </div>
-                            </Col>
-                            <Col span={6} id="uv_index_div">
-                                <div>紫外线指数</div>
-                                <img src={require('../../res/drawable-hdpi/currnet_uv_b.png')}/>
-                                <div id="uv_index_value">
+                                </Text>
+                            </View>
+                            <View span={6} id="uv_index_View">
+                                <Text>紫外线指数</Text>
+                                <Image src={require('../../res/drawable-hdpi/currnet_uv_b.png')}/>
+                                <Text id="uv_index_value">
                                     {observationBean.uv_index}
-                                </div>
-                                <div>
+                                </Text>
+                                <Text>
                                     {observationBean.uv_desc}
-                                </div>
-                            </Col>
-                        </Row>
-                    </div>
-                </Card>
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
             )
         } else {
             return (
-                <div></div>
+                <View></View>
             )
         }
     }

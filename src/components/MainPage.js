@@ -14,6 +14,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import {findCityByName} from  '../Utils.js'
+import CurrentWeatherCard from './CurrentWeatherCard';
 
 const CURRENT_CITY = "current_city";
 
@@ -67,6 +68,7 @@ class AddressList extends React.Component {
     }
 
     getSelectedLocation(value) {
+        console.info(JSON.stringify(value));
         this.props.getSelectedLocation(value);
         // localStorage.setItem(CURRENT_CITY, value);
         try {
@@ -79,20 +81,21 @@ class AddressList extends React.Component {
     render() {
         let mCityBean = this.props.addressResponse;
         if (null != mCityBean) {
-            console.dir(JSON.stringify(mCityBean));
+            console.log(JSON.stringify(mCityBean));
             let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
             dataSource = dataSource.cloneWithRows(mCityBean.addresses);
-            // console.log(dataSource);
+            console.log(dataSource);
             return (
                 <View>
                     <ListView dataSource={dataSource}
-                              renderRow={(dataItem)=>
-                              <TouchableHighlight  >
-                              <Text style={{textAlign:"center",backgroundColor:"white"}}
-                                onPress={(dataItem)=>this.getSelectedLocation(dataItem)} >
-                                {dataItem.address}
-                              </Text>
-                              </TouchableHighlight>
+                              renderRow={(rowData, sectionID, rowID)=>{
+                                 {/*console.log(rowData);*/}
+                                 {/*console.log("sectionID="+sectionID+" rowID="+rowID);*/}
+                                    console.log(mCityBean.addresses[rowID]);
+                           return(<Text style={{textAlign:"center",backgroundColor:"white"}}
+                                onPress={(rowData)=>this.getSelectedLocation(mCityBean.addresses[rowID])} >
+                                {rowData.address}
+                              </Text>)   }
                           }
                     />
                 </View>
@@ -143,7 +146,7 @@ class MainComponent extends React.Component {
     }
 
     getSelectedLocation(value) {
-        console.log(value);
+        console.log(value.address);
         this.setState(
             {
                 addressResponse: null,
@@ -161,9 +164,9 @@ class MainComponent extends React.Component {
                 <View style={{flexDirection:"column"}}>
                     <TitleBar onResponseLocation={(value) => this.onResponseLocation(value)}/>
 
-                    {/*<CurrentWeatherCard address={this.state.address}*/}
-                    {/*latitude={this.state.latitude}*/}
-                    {/*longitude={this.state.longitude}/>*/}
+                    <CurrentWeatherCard address={this.state.address}
+                                        latitude={this.state.latitude}
+                                        longitude={this.state.longitude}/>
                     {/*<HourlyWeatherComponent latitude={this.state.latitude}*/}
                     {/*longitude={this.state.longitude}/>*/}
                     {/*<DailyWeatherComponent latitude={this.state.latitude}*/}
