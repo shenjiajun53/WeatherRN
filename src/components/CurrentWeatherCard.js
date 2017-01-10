@@ -5,7 +5,6 @@
 
 import React from 'react';
 import {
-    AppRegistry,
     ListView,
     Text,
     View,
@@ -42,6 +41,7 @@ class CurrentWeatherCard extends React.Component {
     }
 
     getCurrentWeather() {
+        console.log("getCurrentWeather");
         let url = currentWeatherUrl(mLatitude, mLongitude);
         fetch(url)
             .then(
@@ -67,6 +67,7 @@ class CurrentWeatherCard extends React.Component {
     }
 
     render() {
+        // console.log("start render current");
         if (mLatitude != this.props.latitude && mLongitude != this.props.longitude) {
             mLatitude = this.props.latitude;
             mLongitude = this.props.longitude;
@@ -77,20 +78,21 @@ class CurrentWeatherCard extends React.Component {
             const observationBean = this.state.currentWeatherBean.observation;
             const metricBean = this.state.currentWeatherBean.observation.metric;
             return (
-                <View className="View-content" style={defStyle}
+                <View className="View-content" style={{flex:1,flexDirection:"column"}}
                       bodyStyle={{
                           padding: 0
                       }}>
-                    <View type="flex" align="middle" justify="space-between"
-                          style={{
+                    <View style={{
                              marginTop: 10,
                              marginBottom: 10,
-                             backgroundColor: "#ffffff"
+                             backgroundColor: "#ffffff",
+                             flexDirection:"row",
+                             alignItems:"center"
                          }}>
-                        <Text lg={8} md={12} sm={4} style={{fontSize: 20}}>
+                        <Text style={{fontSize: 20,marginLeft:45}}>
                             {metricBean.temp}℃
                         </Text>
-                        <View lg={16} md={12} sm={20}>
+                        <View style={{marginLeft:16}}>
                             <Text style={{fontSize: 16}}>
                                 {observationBean.phrase_32char}
                             </Text>
@@ -109,10 +111,10 @@ class CurrentWeatherCard extends React.Component {
                         padding: 20,
                         backgroundColor: "#f5f5f5"
                     }}>
-                        <View >
-                            <View span={6} id="temper_high_View">
+                        <View style={{flexDirection:"row",justifyContent:"space-around",alignItems:"center"}}>
+                            <View style={{flex:1,flexDirection:"column",alignItems:"center"}}>
                                 <Text>高</Text>
-                                <Image src={require('../../res/drawable-hdpi/currnet_high_b.png')}/>
+                                <Image source={require('../../res/drawable-hdpi/currnet_high_b.png')}/>
                                 <Text>
                                     {metricBean.temp_max_24hour}
                                 </Text>
@@ -120,9 +122,9 @@ class CurrentWeatherCard extends React.Component {
                                     ℃
                                 </Text>
                             </View>
-                            <View span={6} id="temper_low_View">
+                            <View style={{flex:1,flexDirection:"column",alignItems:"center"}}>
                                 <Text>低</Text>
-                                <Image src={require('../../res/drawable-hdpi/currnet_low_b.png')}/>
+                                <Image source={require('../../res/drawable-hdpi/currnet_low_b.png')}/>
                                 <Text>
                                     {metricBean.temp_min_24hour}
                                 </Text>
@@ -130,9 +132,9 @@ class CurrentWeatherCard extends React.Component {
                                     ℃
                                 </Text>
                             </View>
-                            <View span={6} id="precipitation_View">
+                            <View style={{flex:1,flexDirection:"column",alignItems:"center"}}>
                                 <Text>降水</Text>
-                                <Image src={require('../../res/drawable-hdpi/currnet_preciptation_b.png')}/>
+                                <Image source={require('../../res/drawable-hdpi/currnet_preciptation_b.png')}/>
                                 <Text>
                                     {metricBean.precip_24hour}
                                 </Text>
@@ -140,9 +142,9 @@ class CurrentWeatherCard extends React.Component {
                                     mm
                                 </Text>
                             </View>
-                            <View span={6} id="humidity_View">
+                            <View style={{flex:1,flexDirection:"column",alignItems:"center"}}>
                                 <Text>湿度</Text>
-                                <Image src={require('../../res/drawable-hdpi/currnet_humidity_b.png')}/>
+                                <Image source={require('../../res/drawable-hdpi/currnet_humidity_b.png')}/>
                                 <Text id="humidity_value">
                                     {metricBean.rh}
                                 </Text>
@@ -152,10 +154,10 @@ class CurrentWeatherCard extends React.Component {
                             </View>
                         </View>
 
-                        <View className="View no_margin">
-                            <View span={6} id="visibility_View">
+                        <View style={{flexDirection:"row",justifyContent:"space-around",alignItems:"center"}}>
+                            <View style={{flex:1,flexDirection:"column",alignItems:"center"}}>
                                 <Text>可见度</Text>
-                                <Image src={require('../../res/drawable-hdpi/currnet_visibility_b.png')}/>
+                                <Image source={require('../../res/drawable-hdpi/currnet_visibility_b.png')}/>
                                 <Text id="visibility_value">
                                     {metricBean.vis}
                                 </Text>
@@ -163,9 +165,9 @@ class CurrentWeatherCard extends React.Component {
                                     公里
                                 </Text>
                             </View>
-                            <View span={6} id="wind_View">
+                            <View style={{flex:1,flexDirection:"column",alignItems:"center"}}>
                                 <Text>风速</Text>
-                                <Image src={require('../../res/drawable-hdpi/currnet_wind_b.png')}/>
+                                <Image source={require('../../res/drawable-hdpi/currnet_wind_b.png')}/>
                                 <Text id="wind_value">
                                     {metricBean.wspd}
                                 </Text>
@@ -173,9 +175,9 @@ class CurrentWeatherCard extends React.Component {
                                     公里每小时
                                 </Text>
                             </View>
-                            <View span={6} id="pressure_View">
+                            <View style={{flex:1,flexDirection:"column",alignItems:"center"}}>
                                 <Text>气压</Text>
-                                <Image src={require('../../res/drawable-hdpi/currnet_pressure_b.png')}/>
+                                <Image source={require('../../res/drawable-hdpi/currnet_pressure_b.png')}/>
                                 <Text id="pressure_value">
                                     {metricBean.mslp}
                                 </Text>
@@ -183,9 +185,9 @@ class CurrentWeatherCard extends React.Component {
                                     毫巴
                                 </Text>
                             </View>
-                            <View span={6} id="uv_index_View">
+                            <View style={{flex:1,flexDirection:"column",alignItems:"center"}}>
                                 <Text>紫外线指数</Text>
-                                <Image src={require('../../res/drawable-hdpi/currnet_uv_b.png')}/>
+                                <Image source={require('../../res/drawable-hdpi/currnet_uv_b.png')}/>
                                 <Text id="uv_index_value">
                                     {observationBean.uv_index}
                                 </Text>

@@ -11,10 +11,13 @@ import {
     TextInput,
     TouchableHighlight,
     TouchableNativeFeedback,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage,
+    ScrollView
 } from 'react-native';
 import {findCityByName} from  '../Utils.js'
 import CurrentWeatherCard from './CurrentWeatherCard';
+import HourlyWeatherComponent from './HourlyWeatherComponent';
 
 const CURRENT_CITY = "current_city";
 
@@ -67,12 +70,12 @@ class AddressList extends React.Component {
         super(props);
     }
 
-    getSelectedLocation(value) {
+    async getSelectedLocation(value) {
         console.info(JSON.stringify(value));
         this.props.getSelectedLocation(value);
         // localStorage.setItem(CURRENT_CITY, value);
         try {
-            AsyncStorage.setItem(CURRENT_CITY, value);
+            await AsyncStorage.setItem(CURRENT_CITY, JSON.stringify(value));
         } catch (error) {
             // Error saving data
         }
@@ -84,14 +87,14 @@ class AddressList extends React.Component {
             console.log(JSON.stringify(mCityBean));
             let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
             dataSource = dataSource.cloneWithRows(mCityBean.addresses);
-            console.log(dataSource);
+            // console.log(dataSource);
             return (
                 <View>
                     <ListView dataSource={dataSource}
                               renderRow={(rowData, sectionID, rowID)=>{
                                  {/*console.log(rowData);*/}
                                  {/*console.log("sectionID="+sectionID+" rowID="+rowID);*/}
-                                    console.log(mCityBean.addresses[rowID]);
+                                    {/*console.log(mCityBean.addresses[rowID]);*/}
                            return(<Text style={{textAlign:"center",backgroundColor:"white"}}
                                 onPress={(rowData)=>this.getSelectedLocation(mCityBean.addresses[rowID])} >
                                 {rowData.address}
@@ -117,11 +120,12 @@ class MainComponent extends React.Component {
         }
     }
 
-    componentWillMount() {
+    async componentWillMount() {
         try {
-            const currentCity = AsyncStorage.getItem(CURRENT_CITY);
+            const currentCity = JSON.parse(await AsyncStorage.getItem(CURRENT_CITY));
+            // const currentCity = JSON.parse(cityJson);
             if (null !== currentCity) {
-                console.log(currentCity);
+                console.log(JSON.stringify(currentCity));
                 this.setState(
                     {
                         addressResponse: null,
@@ -130,9 +134,12 @@ class MainComponent extends React.Component {
                         address: currentCity.address
                     }
                 )
+            } else {
+                console.log("current city null");
             }
         } catch (error) {
             // Error retrieving data
+            console.log("get item error=" + error);
         }
     }
 
@@ -163,14 +170,15 @@ class MainComponent extends React.Component {
             <View style={{}}>
                 <View style={{flexDirection:"column"}}>
                     <TitleBar onResponseLocation={(value) => this.onResponseLocation(value)}/>
-
-                    <CurrentWeatherCard address={this.state.address}
-                                        latitude={this.state.latitude}
-                                        longitude={this.state.longitude}/>
-                    {/*<HourlyWeatherComponent latitude={this.state.latitude}*/}
-                    {/*longitude={this.state.longitude}/>*/}
-                    {/*<DailyWeatherComponent latitude={this.state.latitude}*/}
-                    {/*longitude={this.state.longitude}/>*/}
+                    <ScrollView>
+                        <CurrentWeatherCard address={this.state.address}
+                                            latitude={this.state.latitude}
+                                            longitude={this.state.longitude}/>
+                        <HourlyWeatherComponent latitude={this.state.latitude}
+                                                longitude={this.state.longitude}/>
+                        {/*<DailyWeatherComponent latitude={this.state.latitude}*/}
+                        {/*longitude={this.state.longitude}/>*/}
+                    </ScrollView>
                 </View>
 
                 <AddressList style={{flex:1,

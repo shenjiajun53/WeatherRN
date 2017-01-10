@@ -2,19 +2,15 @@
  * Created by shenjj on 2016/12/9.
  */
 import React from 'react';
-import {Card} from 'antd';
-import {Row, Col} from 'antd';
+import {
+    ListView,
+    Text,
+    View,
+    Image
+} from 'react-native';
 import {forcastHourlyWeatherUrl, getHourlyIcon} from  '../Utils.js'
 // import uri from '../../res/drawable-hdpi/mini_icons_sunny_h.png';
 
-const defStyle = {
-    marginRight: '100px',
-    marginLeft: '100px',
-    marginTop: '20px',
-    marginBottom: '20px',
-    fontSize: "14px",
-    fontFamily: "Georgia"
-};
 
 // const uri='../../res/drawable-hdpi/mini_icons_sunny_h.png';
 // let iconUri = require(uri);
@@ -75,46 +71,53 @@ class HourlyWeatherComponent extends React.Component {
         }
         if (null != this.state.hourlyWeatherBean) {
             let forecastList = this.state.hourlyWeatherBean.forecasts;
-            let forecastItemList = forecastList.map(
-                (forecastItem) => {
-                    return <Col lg={1} md={3} sm={6} key={forecastItem.num}>
-                        <div style={{
-                            marginTop: "10px",
-                            marginBottom: "10px"
+            let dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+            dataSource = dataSource.cloneWithRows(forecastList);
+
+            return (
+                <View style={{ marginTop: 20,marginBottom: 20}}>
+                    <View type="flex" align="middle" justify="space-around" style={{
+                        backgroundColor: "#f5f5f5"
+                    }}>
+                        <ListView
+                            dataSource={dataSource}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            renderRow={
+                                        (forecastItem, sectionID, rowID)=>{
+                                        return(
+                                            <View key={forecastItem.num}>
+                        <Text style={{
+                            marginTop: 10,
+                            marginBottom: 10
                         }}>
                             {this.formatTime(forecastItem.fcst_valid_local)}
-                        </div>
-                        <div className="divider" style={{
-                            height: "1px",
-                            background: "#ebebeb"
-                        }}></div>
+                        </Text>
+                        <View className="Viewider" style={{
+                            height: 1,
+                            backgroundColor: "#ebebeb"
+                        }}></View>
 
-                        <img src={this.getIconById(forecastItem.icon_code)} style={{
-                            marginTop: "10px",
+                        <Image source={this.getIconById(forecastItem.icon_code)} style={{
+                            marginTop: 10,
                         }}/>
-                        <div style={{
-                            marginBottom: "10px"
+                        <Text style={{
+                            marginBottom: 10
                         }}>
                             {forecastItem.temp}º
-                        </div>
-                    </Col>
-                }
-            );
-            return (
-                <Card style={defStyle} bodyStyle={{
-                    padding: 0
-                }}>
-                    <Row type="flex" align="middle" justify="space-around" style={{
-                        background: "#f5f5f5"
-                    }} >
-                        {forecastItemList}
-                    </Row>
-                </Card>
+                        </Text>
+                    </View>
+                                            )}
+                                   }>
+
+                        </ListView>
+                    </View>
+                </View>
             )
         } else {
             return (
-                <div>
-                </div>
+                <View>
+                </View>
             )
         }
     }
