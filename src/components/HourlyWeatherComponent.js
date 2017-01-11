@@ -59,7 +59,7 @@ class HourlyWeatherComponent extends React.Component {
 
     getIconById(iconId) {
       let iconUri = getHourlyIcon(iconId);
-      console.log("iconUri=" + iconUri);
+      // console.log("iconUri=" + iconUri);
       return iconUri;
     }
 
@@ -86,10 +86,10 @@ class HourlyWeatherComponent extends React.Component {
           renderRow={
             (forecastItem, sectionID, rowID)=>{
               return(
-                <View key={forecastItem.num}>
+                <View key={forecastItem.num}
+                style={{alignItems:"center",marginLeft:5,marginRight:5,paddingBottom:5,paddingTop:5}}>
                 <Text style={{
-                  marginTop: 10,
-                  marginBottom: 10
+
                 }}>
                 {this.formatTime(forecastItem.fcst_valid_local)}
                 </Text>
@@ -99,10 +99,10 @@ class HourlyWeatherComponent extends React.Component {
                 }}></View>
 
                 <Image source={this.getIconById(forecastItem.icon_code)} style={{
-                  marginTop: 10,
+
                 }}/>
                 <Text style={{
-                  marginBottom: 10
+
                 }}>
                 {forecastItem.temp}º
                 </Text>
