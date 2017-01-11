@@ -18,6 +18,7 @@ import {
 import {findCityByName} from  '../Utils.js'
 import CurrentWeatherCard from './CurrentWeatherCard';
 import HourlyWeatherComponent from './HourlyWeatherComponent';
+import DailyWeatherComponent from './DailyWeatherComponent';
 
 const CURRENT_CITY = "current_city";
 
@@ -176,8 +177,8 @@ class MainComponent extends React.Component {
                                             longitude={this.state.longitude}/>
                         <HourlyWeatherComponent latitude={this.state.latitude}
                                                 longitude={this.state.longitude}/>
-                        {/*<DailyWeatherComponent latitude={this.state.latitude}*/}
-                        {/*longitude={this.state.longitude}/>*/}
+                        <DailyWeatherComponent latitude={this.state.latitude}
+                        longitude={this.state.longitude}/>
                     </ScrollView>
                 </View>
 
