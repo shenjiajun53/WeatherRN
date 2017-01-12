@@ -71,52 +71,57 @@ class DailyWeatherComponent extends React.Component {
             dailyList = dailyList.slice(1, dailyList.length);//移除第一天数据
             dataSource = dataSource.cloneWithRows(dailyList);
 
-            return (<View style={{marginTop:20,marginBottom:20}}>
+            return (<View style={{marginTop: 20, marginBottom: 20}}>
                 <ListView dataSource={dataSource}
                           renderRow={
-              (forecastItem, sectionID, rowID)=>{
-                let backgroundColor = this.getColorById(forecastItem.day.icon_code);
-                return(
-                  <View>
-                      <View
-                        style={
-                          {
-                            flexDirection:"row",
-                            alignItems:"center",
-                            backgroundColor: backgroundColor
-                          }
-                        }>
-                        <Text style={{flex:2,alignItems:"center",  color: "#d1d1d1"}}>
-                          {forecastItem.dow}
-                        </Text>
-                        <View style={{flex:2}}>
-                          <Image source={this.getIconById(forecastItem.day.icon_code)}/>
-                        </View>
-                        <Text style={{flex:3,  color: "#d1d1d1"}}>
-                          {forecastItem.day.phrase_32char}
-                        </Text>
+                              (forecastItem, sectionID, rowID) => {
+                                  let backgroundColor = this.getColorById(forecastItem.day.icon_code);
+                                  return (
+                                      <View>
+                                          <View
+                                              style={
+                                                  {
+                                                      flexDirection: "row",
+                                                      alignItems: "center",
+                                                      backgroundColor: backgroundColor
+                                                  }
+                                              }>
+                                              <Text style={{flex: 2, alignItems: "center", color: "#d1d1d1"}}>
+                                                  {forecastItem.dow}
+                                              </Text>
+                                              <View style={{flex: 2}}>
+                                                  <Image source={this.getIconById(forecastItem.day.icon_code)}/>
+                                              </View>
+                                              <Text style={{flex: 3, color: "#d1d1d1"}}>
+                                                  {forecastItem.day.phrase_32char}
+                                              </Text>
 
-                        <View style={{flex:2,flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-                          <Text style={{color: "#d1d1d1"}}>{forecastItem.day.qpf}</Text>
-                          <Text style={{color: "#d1d1d1"}}>mm</Text>
-                        </View>
+                                              <View style={{
+                                                  flex: 2,
+                                                  flexDirection: "column",
+                                                  justifyContent: "center",
+                                                  alignItems: "center"
+                                              }}>
+                                                  <Text style={{color: "#d1d1d1"}}>{forecastItem.day.qpf}</Text>
+                                                  <Text style={{color: "#d1d1d1"}}>mm</Text>
+                                              </View>
 
-                        <Text style={{flex:1,  color: "#d1d1d1"}}>
-                          {forecastItem.max_temp}º
-                        </Text>
-                        <Text style={{flex:1,  color: "#d1d1d1"}}>
-                        {forecastItem.min_temp}º
-                      </Text>
-                    </View>
+                                              <Text style={{flex: 1, color: "#d1d1d1"}}>
+                                                  {forecastItem.max_temp}º
+                                              </Text>
+                                              <Text style={{flex: 1, color: "#d1d1d1"}}>
+                                                  {forecastItem.min_temp}º
+                                              </Text>
+                                          </View>
 
-                    <View className="Viewider" style={{
-                      height: 1,
-                      backgroundColor: "#ebebeb"
-                    }}></View>
-                  </View>
-              );
-            }
-          }>
+                                          <View className="Viewider" style={{
+                                              height: 1,
+                                              backgroundColor: "#ebebeb"
+                                          }}></View>
+                                      </View>
+                                  );
+                              }
+                          }>
                 </ListView>
             </View>)
         } else {

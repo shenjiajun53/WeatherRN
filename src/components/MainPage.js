@@ -53,8 +53,7 @@ class TitleBar extends React.Component {
 
     render() {
         return (
-            <View style={{
-            }}>
+            <View style={{}}>
                 <TextInput
                     style={{width: 300}}
                     onChangeText={(value) => this.handleChange(value)}
@@ -92,15 +91,19 @@ class AddressList extends React.Component {
             return (
                 <View>
                     <ListView dataSource={dataSource}
-                              renderRow={(rowData, sectionID, rowID)=>{
-                                 {/*console.log(rowData);*/}
-                                 {/*console.log("sectionID="+sectionID+" rowID="+rowID);*/}
-                                    {/*console.log(mCityBean.addresses[rowID]);*/}
-                           return(<Text style={{textAlign:"center",backgroundColor:"white"}}
-                                onPress={(rowData)=>this.getSelectedLocation(mCityBean.addresses[rowID])} >
-                                {rowData.address}
-                              </Text>)   }
-                          }
+                              renderRow={(rowData, sectionID, rowID) => {
+                                  {/*console.log(rowData);*/
+                                  }
+                                  {/*console.log("sectionID="+sectionID+" rowID="+rowID);*/
+                                  }
+                                  {/*console.log(mCityBean.addresses[rowID]);*/
+                                  }
+                                  return (<Text style={{textAlign: "center", backgroundColor: "white"}}
+                                                onPress={(rowData) => this.getSelectedLocation(mCityBean.addresses[rowID])}>
+                                      {rowData.address}
+                                  </Text>)
+                              }
+                              }
                     />
                 </View>
             );
@@ -169,7 +172,7 @@ class MainComponent extends React.Component {
         console.log("start render");
         return (
             <View style={{}}>
-                <View style={{flexDirection:"column"}}>
+                <View style={{flexDirection: "column"}}>
                     <TitleBar onResponseLocation={(value) => this.onResponseLocation(value)}/>
                     <ScrollView>
                         <CurrentWeatherCard address={this.state.address}
@@ -178,13 +181,15 @@ class MainComponent extends React.Component {
                         <HourlyWeatherComponent latitude={this.state.latitude}
                                                 longitude={this.state.longitude}/>
                         <DailyWeatherComponent latitude={this.state.latitude}
-                        longitude={this.state.longitude}/>
+                                               longitude={this.state.longitude}/>
                     </ScrollView>
                 </View>
 
-                <AddressList style={{flex:1,
-                        flexWrap:"wrap",
-                        backgroundColor:"yellow",position:"absolute",marginTop:60}}
+                <AddressList style={{
+                    flex: 1,
+                    flexWrap: "wrap",
+                    backgroundColor: "yellow", position: "absolute", marginTop: 60
+                }}
                              addressResponse={this.state.addressResponse}
                              getSelectedLocation={(value) => this.getSelectedLocation(value)}>
                 </AddressList>
