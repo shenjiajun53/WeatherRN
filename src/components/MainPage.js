@@ -171,9 +171,35 @@ class MainComponent extends React.Component {
     render() {
         console.log("start render");
         return (
-            <View style={{}}>
-                <View style={{flexDirection: "column"}}>
+            <View style={{flex: 1}}>
+                <View style={{
+                    flex: 1,
+                    flexDirection: "column",
+                    top: 0,
+                    left: 0,
+                }}>
                     <TitleBar onResponseLocation={(value) => this.onResponseLocation(value)}/>
+
+                    <View>
+                        <Text>Current Scene: { this.props.title }</Text>
+                        <TouchableNativeFeedback onPress={this.props.onForward}
+                                                 background={TouchableNativeFeedback.SelectableBackground()}>
+                            <Text style={{backgroundColor: "#2193f0", margin: 5}}>点我进入下一场景</Text>
+                        </TouchableNativeFeedback>
+                        <TouchableHighlight onPress={this.props.onBack}
+                                            style={{backgroundColor: "#2193f0", margin: 5}}>
+                            <Text>点我返回上一场景</Text>
+                        </TouchableHighlight>
+                    </View>
+
+                    <AddressList style={{
+                        flexWrap: "wrap",
+                        backgroundColor: "yellow",
+                    }}
+                                 addressResponse={this.state.addressResponse}
+                                 getSelectedLocation={(value) => this.getSelectedLocation(value)}>
+                    </AddressList>
+
                     <ScrollView>
                         <CurrentWeatherCard address={this.state.address}
                                             latitude={this.state.latitude}
@@ -184,15 +210,6 @@ class MainComponent extends React.Component {
                                                longitude={this.state.longitude}/>
                     </ScrollView>
                 </View>
-
-                <AddressList style={{
-                    flex: 1,
-                    flexWrap: "wrap",
-                    backgroundColor: "yellow", position: "absolute", marginTop: 60
-                }}
-                             addressResponse={this.state.addressResponse}
-                             getSelectedLocation={(value) => this.getSelectedLocation(value)}>
-                </AddressList>
             </View>
         );
     }

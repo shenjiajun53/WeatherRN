@@ -12,13 +12,14 @@ import {
     View
 } from 'react-native';
 import MainPage from './src/components/MainPage';
+import App from './src/App';
 import Demo2 from './src/Demo2';
 
 
 export default class WeatherRN extends Component {
     render() {
         return (
-            <MainPage/>
+            <App/>
         );
     }
 }

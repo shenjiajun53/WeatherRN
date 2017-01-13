@@ -25,6 +25,7 @@ class Demo2 extends Component {
                         flex:1,
                         flexWrap:"wrap",
                         backgroundColor:"yellow",
+
                     }}
                     dataSource={this.state.dataSource}
                     renderRow={(rowData) =>

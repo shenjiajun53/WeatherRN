@@ -50,7 +50,7 @@ class DailyWeatherComponent extends React.Component {
     }
 
     getColorById(iconId) {
-        console.log("icon_id=" + iconId);
+        // console.log("icon_id=" + iconId);
         let color = getBackgroundColor(iconId);
         // console.log("iconUri=" + iconUri);
         return color;
