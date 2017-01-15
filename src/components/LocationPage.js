@@ -64,12 +64,12 @@ class AddressList extends React.Component {
         super(props);
     }
 
-    async getSelectedLocation(value) {
+    async onLocationClicked(value) {
         console.info(JSON.stringify(value));
         this.props.getSelectedLocation(value);
         // localStorage.setItem(CURRENT_CITY, value);
         try {
-            await AsyncStorage.setItem(CURRENT_CITY, JSON.stringify(value));
+            await AsyncStorage.setItem("current_city", JSON.stringify(value));
         } catch (error) {
             // Error saving data
         }
@@ -93,7 +93,7 @@ class AddressList extends React.Component {
                                   {/*console.log(mCityBean.addresses[rowID]);*/
                                   }
                                   return (<Text style={{textAlign: "center", backgroundColor: "white"}}
-                                                onPress={(rowData) => this.getSelectedLocation(mCityBean.addresses[rowID])}>
+                                                onPress={(rowData) => this.onLocationClicked(mCityBean.addresses[rowID])}>
                                       {rowData.address}
                                   </Text>)
                               }
@@ -110,6 +110,12 @@ class AddressList extends React.Component {
 class LocationPage extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            addressResponse: null,
+            latitude: null,
+            longitude: null,
+            address: null,
+        }
     }
 
     componentWillMount() {
@@ -125,8 +131,22 @@ class LocationPage extends React.Component {
     }
 
     onBackClicked() {
-        this.props.onBack;
-        return true;
+        this.props.onBack();
+        return false;
+    }
+
+    onResponseLocation(value) {
+        // console.log("responseLocation=" + value);
+        this.setState(
+            {
+                addressResponse: value
+            }
+        )
+    }
+
+    getSelectedLocation(value) {
+        this.props.getSelectedLocation(value);
+        this.props.onBack();
     }
 
     render() {
@@ -139,14 +159,18 @@ class LocationPage extends React.Component {
                 backgroundColor: "#ffffff"
             }}>
                 <TitleBar onResponseLocation={(value) => this.onResponseLocation(value)}/>
-                <View>
-                    <Text>Current Scene: { this.props.title }</Text>
-                    <TouchableOpacity onPress={this.props.onBack}>
-                        <Text style={{backgroundColor: "#2193f0", margin: 5}}>点我返回上一场景</Text>
-                    </TouchableOpacity>
-                </View>
 
+                <AddressList style={{
+                    flexWrap: "wrap",
+                    backgroundColor: "yellow",
+                }}
+                             addressResponse={this.state.addressResponse}
+                             getSelectedLocation={(value) => this.getSelectedLocation(value)}>
+                </AddressList>
 
+                <TouchableOpacity onPress={this.props.onBack}>
+                    <Text style={{backgroundColor: "#2193f0", margin: 5}}>点我返回上一场景</Text>
+                </TouchableOpacity>
             </View>
         );
     }
