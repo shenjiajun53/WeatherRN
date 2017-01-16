@@ -13,9 +13,11 @@ import {
     TouchableNativeFeedback,
     TouchableOpacity,
     AsyncStorage,
-    ScrollView
+    ScrollView,
+    Image,
+    Dimensions,
 } from 'react-native';
-import {findCityByName} from  '../Utils.js'
+import {findCityByName, getBackgroundImage, currentWeatherUrl} from  '../Utils.js'
 import CurrentWeatherCard from './CurrentWeatherCard';
 import HourlyWeatherComponent from './HourlyWeatherComponent';
 import DailyWeatherComponent from './DailyWeatherComponent';
@@ -24,6 +26,7 @@ const CURRENT_CITY = "current_city";
 
 console.disableYellowBox = true;
 
+let mCurrentCity;
 class MainComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -31,49 +34,101 @@ class MainComponent extends React.Component {
             latitude: null,
             longitude: null,
             address: null,
+            backgroundImg: require("../../res/drawable-xxhdpi/bg_white.jpg"),
+            currentWeatherBean: null
         }
     }
 
-    parseCurrentCity() {
+    componentWillMount() {
+        // console.log("componentWillMount");
+        this.parseCity();
+    }
+
+    // shouldComponentUpdate() {
+    //     console.log("shouldComponentUpdate");
+    //     // this.parseCity();
+    //     return true;
+    // }
+    componentWillUpdate() {
+        this.parseCity();
+    }
+
+    parseCity() {
+        // console.log("parse city");
         const currentCity = this.props.currentCity;
-        if (null !== currentCity) {
+        if (null !== currentCity && mCurrentCity != currentCity) {
+            mCurrentCity = currentCity;
             console.log(JSON.stringify(currentCity));
-            this.state.latitude = currentCity.latitude;
-            this.state.longitude = currentCity.longitude;
-            this.state.address = currentCity.address;
+            this.setState({
+                latitude: currentCity.latitude,
+                longitude: currentCity.longitude,
+                address: currentCity.address,
+            });
+            this.getCurrentWeather(currentCity);
         } else {
-            console.log("current city null");
+            // console.log("current city null or no change");
         }
+    }
+
+    getCurrentWeather(currentCity) {
+        let url = currentWeatherUrl(currentCity.latitude, currentCity.longitude);
+        fetch(url)
+            .then(
+                (response) => response.json()
+            ).then(
+            (json) => {
+                let mCurrentWeatherBean = json;
+                console.log(JSON.stringify(json));
+                if (mCurrentWeatherBean.metadata.status_code == 200) {
+                    this.getBackground(mCurrentWeatherBean);
+                } else {
+                    this.setState({
+                        currentWeatherBean: null
+                    });
+                }
+            }
+        ).catch(
+            (ex) => {
+                console.log('parsing failed', ex);
+            });
+    }
+
+    getBackground(currentWeather) {
+        const bg = getBackgroundImage(currentWeather.observation.icon_code);
+        this.setState({
+            currentWeatherBean: currentWeather,
+            backgroundImg: bg
+        })
     }
 
     render() {
-        console.log("start render");
-        this.parseCurrentCity();
+        // console.log("start render");
         return (
             <View style={{flex: 1}}>
-                <View style={{
+                <Image style={{
                     flex: 1,
                     flexDirection: "column",
                     top: 0,
                     left: 0,
-                }}>
+                    width: Dimensions.get('window').width,
+                }} source={this.state.backgroundImg}>
 
-                    <TouchableNativeFeedback onPress={this.props.onForward}
+                    <TouchableOpacity onPress={this.props.onForward}
                                              background={TouchableNativeFeedback.SelectableBackground()}>
                         <Text style={{backgroundColor: "#2193f0", margin: 5}}>点我进入下一场景</Text>
-                    </TouchableNativeFeedback>
+                    </TouchableOpacity>
 
 
                     <ScrollView>
                         <CurrentWeatherCard address={this.state.address}
-                                            latitude={this.state.latitude}
-                                            longitude={this.state.longitude}/>
+                                            currentWeatherBean={this.state.currentWeatherBean}/>
                         <HourlyWeatherComponent latitude={this.state.latitude}
                                                 longitude={this.state.longitude}/>
                         <DailyWeatherComponent latitude={this.state.latitude}
                                                longitude={this.state.longitude}/>
+
                     </ScrollView>
-                </View>
+                </Image>
             </View>
         );
     }

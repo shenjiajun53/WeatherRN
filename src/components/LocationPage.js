@@ -14,7 +14,8 @@ import {
     AsyncStorage,
     ScrollView,
     Platform,
-    BackAndroid
+    BackAndroid,
+    Image
 } from 'react-native';
 import {findCityByName} from  '../Utils.js'
 
@@ -120,19 +121,20 @@ class LocationPage extends React.Component {
 
     componentWillMount() {
         if (Platform.OS === 'android') {
-            BackAndroid.addEventListener('hardwareBackPress', this.onBackClicked);
+            BackAndroid.addEventListener('hardwareBackPress', () => {
+                this.props.onBack();
+                return true;
+            });
         }
     }
 
     componentWillUnmount() {
         if (Platform.OS === 'android') {
-            BackAndroid.removeEventListener('hardwareBackPress', this.onBackClicked);
+            BackAndroid.removeEventListener('hardwareBackPress', () => {
+                this.props.onBack();
+                return true;
+            });
         }
-    }
-
-    onBackClicked() {
-        this.props.onBack();
-        return false;
     }
 
     onResponseLocation(value) {
@@ -167,10 +169,6 @@ class LocationPage extends React.Component {
                              addressResponse={this.state.addressResponse}
                              getSelectedLocation={(value) => this.getSelectedLocation(value)}>
                 </AddressList>
-
-                <TouchableOpacity onPress={this.props.onBack}>
-                    <Text style={{backgroundColor: "#2193f0", margin: 5}}>点我返回上一场景</Text>
-                </TouchableOpacity>
             </View>
         );
     }

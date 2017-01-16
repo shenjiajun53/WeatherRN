@@ -30,63 +30,31 @@ const defStyle = {
     padding: 0,
 };
 
-let mLatitude;
-let mLongitude;
 
 class CurrentWeatherCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentWeatherBean: null
+            currentWeatherBean: this.props.currentWeatherBean
         };
     }
 
-    getCurrentWeather() {
-        let url = currentWeatherUrl(mLatitude, mLongitude);
-        fetch(url)
-            .then(
-                (response) => response.json()
-            ).then(
-            (json) => {
-                let mCurrentWeatherBean = json;
-                if (mCurrentWeatherBean.metadata.status_code == 200) {
-                    this.setState({
-                        currentWeatherBean: mCurrentWeatherBean
-                    });
-                } else {
-                    this.setState({
-                        currentWeatherBean: null
-                    });
-                }
-            }
-        ).catch(
-            (ex) => {
-                console.log('parsing failed', ex);
-            });
-    }
-
     render() {
-        // console.log("start render current");
-        if (mLatitude != this.props.latitude && mLongitude != this.props.longitude) {
-            mLatitude = this.props.latitude;
-            mLongitude = this.props.longitude;
-            this.getCurrentWeather();
-            // console.info("mLatitude=" + mLatitude);
-        }
-        if (null != this.state.currentWeatherBean) {
-            const observationBean = this.state.currentWeatherBean.observation;
-            const metricBean = this.state.currentWeatherBean.observation.metric;
+        if (null != this.props.currentWeatherBean) {
+            const currentWeatherBean=this.props.currentWeatherBean;
+            const observationBean = currentWeatherBean.observation;
+            const metricBean = currentWeatherBean.observation.metric;
             return (
-                <View className="View-content" style={{flex: 1, flexDirection: "column"}}
+                <View className="View-content" style={{marginTop: 10, flex: 1, flexDirection: "column"}}
                       bodyStyle={{
                           padding: 0
                       }}>
                     <View style={{
-                        marginTop: 10,
-                        marginBottom: 10,
                         backgroundColor: "#ffffff",
                         flexDirection: "row",
-                        alignItems: "center"
+                        alignItems: "center",
+                        paddingTop: 5,
+                        paddingBottom: 5
                     }}>
                         <Text style={{fontSize: 20, marginLeft: 45}}>
                             {metricBean.temp}℃

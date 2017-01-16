@@ -26,7 +26,7 @@ class DailyWeatherComponent extends React.Component {
             ).then(
             (json) => {
                 let mDailyWeatherBean = json;
-                console.log(JSON.stringify(json));
+                // console.log(JSON.stringify(json));
                 if (mDailyWeatherBean.metadata.status_code == 200) {
                     this.setState({
                         dailyWeatherBean: mDailyWeatherBean
@@ -71,7 +71,7 @@ class DailyWeatherComponent extends React.Component {
             dailyList = dailyList.slice(1, dailyList.length);//移除第一天数据
             dataSource = dataSource.cloneWithRows(dailyList);
 
-            return (<View style={{marginTop: 20, marginBottom: 20}}>
+            return (<View style={{marginBottom: 10}}>
                 <ListView dataSource={dataSource}
                           renderRow={
                               (forecastItem, sectionID, rowID) => {

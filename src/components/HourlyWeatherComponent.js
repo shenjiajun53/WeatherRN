@@ -35,7 +35,7 @@ class HourlyWeatherComponent extends React.Component {
             ).then(
             (json) => {
                 let mHourlyWeatherBean = json;
-                console.log(JSON.stringify(json));
+                // console.log(JSON.stringify(json));
                 if (mHourlyWeatherBean.metadata.status_code == 200) {
                     this.setState({
                         hourlyWeatherBean: mHourlyWeatherBean
@@ -75,7 +75,7 @@ class HourlyWeatherComponent extends React.Component {
             dataSource = dataSource.cloneWithRows(forecastList);
 
             return (
-                <View style={{marginTop: 20, marginBottom: 20}}>
+                <View style={{marginTop: 10, marginBottom: 10}}>
                     <View type="flex" align="middle" justify="space-around" style={{
                         backgroundColor: "#f5f5f5"
                     }}>

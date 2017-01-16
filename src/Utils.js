@@ -38,6 +38,16 @@ import mini_icons_hot_h from "../res/drawable-hdpi/mini_icons_hot_h.png";
 /**
  * Created by shenjiajun on 2016/3/21.
  */
+const bg_clear = require("../res/drawable-xxhdpi/bg_clear.png");
+const bg_cloudy = require("../res/drawable-xxhdpi/bg_cloudy.png");
+const bg_fog = require("../res/drawable-xxhdpi/bg_fog.png");
+const bg_frost = require("../res/drawable-xxhdpi/bg_frost.png");
+const bg_rainy = require("../res/drawable-xxhdpi/bg_rainy.jpg");
+const bg_snow = require("../res/drawable-xxhdpi/bg_snow.png");
+const bg_storm = require("../res/drawable-xxhdpi/bg_storm.png");
+const bg_sunny = require("../res/drawable-xxhdpi/bg_sunny.jpg");
+
+
 var APIKEY = "0efd9b4f14275d37789a2f57e5101852";
 
 const lang = "zh-CN";
@@ -212,55 +222,55 @@ export function getHourlyIcon(icon) {
 
 
 var backgoundImageMap = {
-    27: "res/drawable-xxhdpi/bg_clear.png",
-    29: "res/drawable-xxhdpi/bg_clear.png",
-    31: "res/drawable-xxhdpi/bg_clear.png",
-    33: "res/drawable-xxhdpi/bg_clear.png",
+    27: bg_clear,
+    29: bg_clear,
+    31: bg_clear,
+    33: bg_clear,
 
-    26: "res/drawable-xxhdpi/bg_cloudy.png",
-    28: "res/drawable-xxhdpi/bg_cloudy.png",
-    30: "res/drawable-xxhdpi/bg_cloudy.png",
-    34: "res/drawable-xxhdpi/bg_cloudy.png",
+    26: bg_cloudy,
+    28: bg_cloudy,
+    30: bg_cloudy,
+    34: bg_cloudy,
 
-    19: "res/drawable-xxhdpi/bg_fog.png",
-    20: "res/drawable-xxhdpi/bg_fog.png",
-    21: "res/drawable-xxhdpi/bg_fog.png",
-    22: "res/drawable-xxhdpi/bg_fog.png",
-    23: "res/drawable-xxhdpi/bg_fog.png",
-    24: "res/drawable-xxhdpi/bg_fog.png",
+    19: bg_fog,
+    20: bg_fog,
+    21: bg_fog,
+    22: bg_fog,
+    23: bg_fog,
+    24: bg_fog,
 
-    25: "res/drawable-xxhdpi/bg_frost.png",
+    25: bg_frost,
 
-    4: "res/drawable-xxhdpi/bg_rainy.jpg",
-    5: "res/drawable-xxhdpi/bg_rainy.jpg",
-    6: "res/drawable-xxhdpi/bg_rainy.jpg",
-    8: "res/drawable-xxhdpi/bg_rainy.jpg",
-    9: "res/drawable-xxhdpi/bg_rainy.jpg",
-    10: "res/drawable-xxhdpi/bg_rainy.jpg",
-    11: "res/drawable-xxhdpi/bg_rainy.jpg",
-    12: "res/drawable-xxhdpi/bg_rainy.jpg",
-    40: "res/drawable-xxhdpi/bg_rainy.jpg",
+    4: bg_rainy,
+    5: bg_rainy,
+    6: bg_rainy,
+    8: bg_rainy,
+    9: bg_rainy,
+    10: bg_rainy,
+    11: bg_rainy,
+    12: bg_rainy,
+    40: bg_rainy,
 
-    7: "res/drawable-xxhdpi/bg_snow.png",
-    13: "res/drawable-xxhdpi/bg_snow.png",
-    14: "res/drawable-xxhdpi/bg_snow.png",
-    15: "res/drawable-xxhdpi/bg_snow.png",
-    16: "res/drawable-xxhdpi/bg_snow.png",
-    17: "res/drawable-xxhdpi/bg_snow.png",
-    18: "res/drawable-xxhdpi/bg_snow.png",
-    42: "res/drawable-xxhdpi/bg_snow.png",
+    7: bg_snow,
+    13: bg_snow,
+    14: bg_snow,
+    15: bg_snow,
+    16: bg_snow,
+    17: bg_snow,
+    18: bg_snow,
+    42: bg_snow,
 
-    38: "res/drawable-xxhdpi/bg_storm.png",
-    47: "res/drawable-xxhdpi/bg_storm.png",
+    38: bg_storm,
+    47: bg_storm,
 
-    32: "res/drawable-xxhdpi/bg_sunny.jpg"
+    32: bg_sunny
 };
 
-function getBackgroundImage(id) {
+export function getBackgroundImage(id) {
     if (backgoundImageMap[id] != null) {
         return backgoundImageMap[id];
     } else {
-        return "res/drawable-xxhdpi/bg_sunny.jpg";
+        return bg_sunny;
     }
 }
 
