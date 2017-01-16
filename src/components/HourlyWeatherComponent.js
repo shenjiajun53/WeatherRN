@@ -77,7 +77,7 @@ class HourlyWeatherComponent extends React.Component {
             return (
                 <View style={{marginTop: 10, marginBottom: 10}}>
                     <View type="flex" align="middle" justify="space-around" style={{
-                        backgroundColor: "#f5f5f5"
+                        backgroundColor: "#fafafa"
                     }}>
                         <ListView
                             dataSource={dataSource}
@@ -89,20 +89,23 @@ class HourlyWeatherComponent extends React.Component {
                                         <View key={forecastItem.num}
                                               style={{
                                                   alignItems: "center",
-                                                  marginLeft: 5,
-                                                  marginRight: 5,
                                                   paddingBottom: 5,
                                                   paddingTop: 5
                                               }}>
-                                            <Text style={{}}>
+                                            <Text style={{marginRight: 5, marginLeft: 5}}>
                                                 {this.formatTime(forecastItem.fcst_valid_local)}
                                             </Text>
-                                            <View className="Viewider" style={{
+
+                                            <View className="divider" style={{
                                                 height: 1,
-                                                backgroundColor: "#ebebeb"
+                                                alignSelf: 'stretch',
+                                                backgroundColor: "#ebebeb",
+                                                marginTop: 3,
+                                                marginBottom: 3
                                             }}></View>
 
-                                            <Image source={this.getIconById(forecastItem.icon_code)} style={{}}/>
+                                            <Image source={this.getIconById(forecastItem.icon_code)}
+                                                   style={{height: 24, width: 24}}/>
                                             <Text style={{}}>
                                                 {forecastItem.temp}º
                                             </Text>

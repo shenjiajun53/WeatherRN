@@ -86,13 +86,13 @@ class DailyWeatherComponent extends React.Component {
                                                       backgroundColor: backgroundColor
                                                   }
                                               }>
-                                              <Text style={{flex: 2, alignItems: "center", color: "#d1d1d1"}}>
+                                              <Text style={{flex: 2, alignItems: "center", color: "#ffffff"}}>
                                                   {forecastItem.dow}
                                               </Text>
                                               <View style={{flex: 2}}>
-                                                  <Image source={this.getIconById(forecastItem.day.icon_code)}/>
+                                                  <Image source={this.getIconById(forecastItem.day.icon_code)} style={{height:24,width:24}}/>
                                               </View>
-                                              <Text style={{flex: 3, color: "#d1d1d1"}}>
+                                              <Text style={{flex: 3, color: "#ffffff"}}>
                                                   {forecastItem.day.phrase_32char}
                                               </Text>
 
@@ -102,11 +102,11 @@ class DailyWeatherComponent extends React.Component {
                                                   justifyContent: "center",
                                                   alignItems: "center"
                                               }}>
-                                                  <Text style={{color: "#d1d1d1"}}>{forecastItem.day.qpf}</Text>
-                                                  <Text style={{color: "#d1d1d1"}}>mm</Text>
+                                                  <Text style={{color: "#ffffff"}}>{forecastItem.day.qpf}</Text>
+                                                  <Text style={{color: "#ffffff"}}>mm</Text>
                                               </View>
 
-                                              <Text style={{flex: 1, color: "#d1d1d1"}}>
+                                              <Text style={{flex: 1, color: "#ffffff"}}>
                                                   {forecastItem.max_temp}º
                                               </Text>
                                               <Text style={{flex: 1, color: "#d1d1d1"}}>
@@ -114,7 +114,7 @@ class DailyWeatherComponent extends React.Component {
                                               </Text>
                                           </View>
 
-                                          <View className="Viewider" style={{
+                                          <View className="divider" style={{
                                               height: 1,
                                               backgroundColor: "#ebebeb"
                                           }}></View>

@@ -113,15 +113,24 @@ class MainComponent extends React.Component {
                     width: Dimensions.get('window').width,
                 }} source={this.state.backgroundImg}>
 
-                    <TouchableOpacity onPress={this.props.onForward}
-                                             background={TouchableNativeFeedback.SelectableBackground()}>
-                        <Text style={{backgroundColor: "#2193f0", margin: 5}}>点我进入下一场景</Text>
-                    </TouchableOpacity>
+                    <View style={{flexDirection: "row", marginTop: 10, marginBottom: 10}}>
+                        <View style={{flex: 1}}/>
+                        <TouchableOpacity onPress={this.props.onForward}
+                                          background={TouchableNativeFeedback.SelectableBackground()}>
+                            <Image source={require("../../res/drawable-xhdpi/ic_menu.png")}
+                                   style={{marginRight: 16, height: 24, width: 24}}/>
+                        </TouchableOpacity>
+                    </View>
 
 
-                    <ScrollView>
-                        <CurrentWeatherCard address={this.state.address}
-                                            currentWeatherBean={this.state.currentWeatherBean}/>
+                    <ScrollView style={{}}>
+                        <View style={{flex: 1, height: Dimensions.get('window').height - 40}}>
+                            <View style={{flex: 1}}/>
+                            <View>
+                                <CurrentWeatherCard address={this.state.address}
+                                                    currentWeatherBean={this.state.currentWeatherBean}/>
+                            </View>
+                        </View>
                         <HourlyWeatherComponent latitude={this.state.latitude}
                                                 longitude={this.state.longitude}/>
                         <DailyWeatherComponent latitude={this.state.latitude}
