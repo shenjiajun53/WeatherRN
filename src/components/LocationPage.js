@@ -93,10 +93,22 @@ class AddressList extends React.Component {
                                   }
                                   {/*console.log(mCityBean.addresses[rowID]);*/
                                   }
-                                  return (<Text style={{textAlign: "center", backgroundColor: "white"}}
-                                                onPress={(rowData) => this.onLocationClicked(mCityBean.addresses[rowID])}>
-                                      {rowData.address}
-                                  </Text>)
+                                  return (
+                                      <TouchableOpacity
+                                          onPress={(rowData) => this.onLocationClicked(mCityBean.addresses[rowID])}
+                                          background={TouchableNativeFeedback.SelectableBackground()}>
+                                          <Text style={{
+                                              textAlign: "center",
+                                              backgroundColor: "white",
+                                              fontSize: 16,
+                                              paddingBottom: 3,
+                                              paddingTop: 3
+                                          }}
+                                          >
+                                              {rowData.address}
+                                          </Text>
+                                      </TouchableOpacity>
+                                  )
                               }
                               }
                     />
