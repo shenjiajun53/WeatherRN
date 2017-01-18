@@ -9,17 +9,17 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    View
+    View,
 } from 'react-native';
 import MainPage from './src/components/MainPage';
 import App from './src/App';
-import Demo2 from './src/Demo2';
+import Demo from './src/Demo';
 
 
 export default class WeatherRN extends Component {
     render() {
         return (
-            <App/>
+            <Demo/>
         );
     }
 }

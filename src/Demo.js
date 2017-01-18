@@ -1,31 +1,72 @@
 /**
- * Created by shenjj on 2016/12/14.
+ * Created by shenjj on 2017/1/3.
  */
 import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
-import 'antd/dist/antd.css';
-import TimerComponent from './components/TimerComponent'
-import ListComponent from './components/ListComponent'
-import SyncInputGroup from './components/SyncInputGroup'
-import MainComponent from './components/MainPage'
+import {
+    AppRegistry,
+    ListView,
+    Text,
+    View,
+    KeyboardAvoidingView,
+    TextInput,
+    Dimensions
+} from 'react-native';
 
 class Demo extends Component {
+    // Initialize the hardcoded data
+    constructor(props) {
+        super(props);
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.state = {
+            dataSource: ds.cloneWithRows([
+                'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
+            ])
+        };
+    }
+
     render() {
+        console.log(this.state.dataSource);
         return (
-            <div className="App">
-                <div className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h2>Welcome to React</h2>
-                </div>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
-                <TimerComponent/>
-                <ListComponent/>
-                <SyncInputGroup/>
-                <MainComponent/>
-            </div>
+            <View style={{flex: 1}}>
+                <TextInput />
+                <ListView
+                    style={{
+                        backgroundColor: "yellow",
+                    }}
+                    dataSource={this.state.dataSource}
+                    renderRow={(rowData) =>
+                        <Text style={{
+                            textAlign: "center",
+                        }}>
+                            {rowData}
+                        </Text>}
+
+                >
+                </ListView>
+
+                <View style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: "center",
+                    position: "absolute",
+                    width:Dimensions.get('window').width
+                }}>
+                    <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}}>
+
+                    </View>
+                    <View
+                        style={{
+                            width: 100,
+                            height: 100,
+                            backgroundColor: 'skyblue',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                        <View style={{width: 50, height: 50, backgroundColor: 'red'}}/>
+                    </View>
+                    <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}}/>
+                </View>
+            </View>
         );
     }
 }
