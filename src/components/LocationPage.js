@@ -16,7 +16,8 @@ import {
     Platform,
     BackAndroid,
     Image,
-    Dimensions
+    Dimensions,
+    KeyboardAvoidingView
 } from 'react-native';
 import {findCityByName, findCityByGeoLocation} from  '../Utils.js'
 
@@ -235,31 +236,37 @@ class LocationPage extends React.Component {
 
                 <AddressList style={{
                     flexWrap: "wrap",
-                    backgroundColor: "yellow",
                 }}
                              addressResponse={this.state.addressResponse}
                              getSelectedLocation={(value) => this.getSelectedLocation(value)}>
                 </AddressList>
 
+                <View style={{flex: 1}}/>
 
-                <View style={{
-                    borderRadius: 50,
-                    backgroundColor: "#FF4081",
-                    padding: 10,
-                    position: "absolute",
-                    left: Dimensions.get('window').width - 60,
-                    top: Dimensions.get('window').height - 100,
-                }}>
-                    <TouchableOpacity onPress={() => this.getLocation()}>
-                        <Image
-                            style={{
-                                height: 30,
-                                width: 30,
-                            }}
-                            source={require("../../res/drawable-xhdpi/location_bg.png")}
-                        />
-                    </TouchableOpacity>
-                </View>
+                <KeyboardAvoidingView behavior={"padding"} keyboardVerticalOffset={-20}>
+                    <View style={{
+                        borderRadius: 50,
+                        backgroundColor: "#FF4081",
+                        height: 55,
+                        width: 55,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginBottom: 16,
+                        marginRight: 16,
+                        alignSelf: "flex-end"
+                    }}>
+                        <TouchableOpacity onPress={() => this.getLocation()}>
+                            <Image
+                                style={{
+                                    height: 30,
+                                    width: 30,
+                                }}
+                                source={require("../../res/drawable-xhdpi/location_bg.png")}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </KeyboardAvoidingView>
+
             </View>
         );
     }

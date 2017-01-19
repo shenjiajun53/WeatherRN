@@ -11,7 +11,6 @@ import {
     Text,
     View,
 } from 'react-native';
-import MainPage from './src/components/MainPage';
 import App from './src/App';
 import Demo from './src/Demo';
 
@@ -19,7 +18,7 @@ import Demo from './src/Demo';
 export default class WeatherRN extends Component {
     render() {
         return (
-            <Demo/>
+            <App/>
         );
     }
 }

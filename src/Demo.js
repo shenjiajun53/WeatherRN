@@ -31,6 +31,7 @@ class Demo extends Component {
                 <TextInput />
                 <ListView
                     style={{
+                        flex: 1,
                         backgroundColor: "yellow",
                     }}
                     dataSource={this.state.dataSource}
@@ -44,12 +45,13 @@ class Demo extends Component {
                 >
                 </ListView>
 
+
                 <View style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     alignItems: "center",
-                    position: "absolute",
-                    width:Dimensions.get('window').width
+                    width: Dimensions.get('window').width,
+                    position: "absolute"
                 }}>
                     <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}}>
 
@@ -66,6 +68,7 @@ class Demo extends Component {
                     </View>
                     <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}}/>
                 </View>
+
             </View>
         );
     }
