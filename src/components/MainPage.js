@@ -16,6 +16,8 @@ import {
     ScrollView,
     Image,
     Dimensions,
+    Platform,
+    BackAndroid,
 } from 'react-native';
 import {findCityByName, getBackgroundImage, currentWeatherUrl} from  '../Utils.js'
 import CurrentWeatherCard from './CurrentWeatherCard';
@@ -42,6 +44,13 @@ class MainComponent extends React.Component {
     componentWillMount() {
         // console.log("componentWillMount");
         this.parseCity();
+
+        // if (Platform.OS === 'android') {
+        //     BackAndroid.removeEventListener('hardwareBackPress', () => {
+        //         // this.props.onBack();
+        //         // return false;
+        //     });
+        // }
     }
 
     // shouldComponentUpdate() {

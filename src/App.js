@@ -85,6 +85,9 @@ class App extends Component {
                                    </LocationPage>);
                            }
                        }}
+
+                       configureScene={(route, routeStack) =>
+                           Navigator.SceneConfigs.FloatFromRight}
             />
         );
     }

@@ -160,6 +160,7 @@ class LocationPage extends React.Component {
     }
 
     componentWillMount() {
+        console.log("location componentWillMount");
         if (Platform.OS === 'android') {
             BackAndroid.addEventListener('hardwareBackPress', () => {
                 this.props.onBack();
@@ -169,10 +170,11 @@ class LocationPage extends React.Component {
     }
 
     componentWillUnmount() {
+        console.log("location componentWillUnmount");
         if (Platform.OS === 'android') {
             BackAndroid.removeEventListener('hardwareBackPress', () => {
-                this.props.onBack();
-                return true;
+                // this.props.onBack();
+                // return false;
             });
         }
     }
